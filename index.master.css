@@ -1,0 +1,52 @@
+﻿.navbar {
+  box-shadow: inset 0 0 5px #007bff;
+}
+
+.navbar:hover {
+  box-shadow: inset 0 0 10px #007bff;
+  transition: 0.5s ease-in-out;
+}
+
+.row {
+  position: relative;
+  width: 100%;
+  padding: 0px !important;
+  margin: 0px !important;
+  height: auto;
+}
+
+.layout {
+  position: absolute;
+  top: 0;
+  left: 0;
+  display: grid;
+  padding: 0;
+  margin: 0;
+  width: 100vw;
+  height: 100vh;
+  grid-template-rows: 15vh 75vh 10vh;
+}
+
+.layout > * {
+  padding: 0;
+  margin: 0;
+  overflow: auto;
+}
+
+.layout > .navbar {
+  grid-row: 1/2;
+}
+
+.layout > .main {
+  grid-row: 2/3;
+}
+
+.layout > .footer {
+  grid-row: 3/-1;
+}
+
+@media (max-width: 768px) {
+  .layout {
+    grid-template-rows: auto auto auto;
+  }
+}

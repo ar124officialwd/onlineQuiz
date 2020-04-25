@@ -1,0 +1,147 @@
+﻿* {
+  box-sizing: border-box !important;
+  border: none !important;
+  border-radius: 0 !important;
+}
+
+body, html {
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 100vw;
+  height: 100vh;
+}
+
+/* font families */
+@font-face {
+  src: url('/resources/fonts/rounder.otf');
+  font-family: 'Rounder'
+}
+
+@font-face {
+  src: url('/resources/fonts/couture-bold.otf');
+  font-family: 'Couture Bold'
+}
+
+@font-face {
+  src: url('/resources/fonts/NotoSans-Regular.ttf');
+  font-family: 'Noto Sans';
+}
+
+@font-face {
+  src: url('/font-awesome/webfonts/fa-regular-400.ttf');
+  font-family: 'Font Awesome Regular';
+}
+
+
+/* profile/profile.aspx */
+.field:hover {
+  box-shadow: inset 0px 0px 5px #007bff;
+  transition: 0.2s ease-in-out;
+}
+
+/* global */
+* {
+  font-family: Helvetica, 'Noto Sans', 'Open Sans', sans-serif;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  font-family: 'Couture Bold' !important;
+}
+
+.asp-panel {
+  padding: 8px;
+  box-shadow: inset 0px 0px 5px #007bff;
+}
+
+.asp-panel > .asp-panel {
+  box-shadow: inset 0px 0px 2px #007bff;
+}
+
+.border-black {
+  border-color: black !important;
+}
+
+.border-blue {
+  border-color: blue !important;
+}
+
+.boder-green {
+  border-color: green !important;
+}
+
+.boder-red {
+  border-color: red !important;
+}
+
+.border-1 {
+  border-width: 2px !important;
+}
+
+button, b, a, .btn {
+  font-family: Rounder !important;
+}
+
+button:hover {
+  text-decoration: underline !important;
+  text-decoration-color: blue !important;
+  border-right: none !important;
+  transition: 0.5s ease-in-out;
+}
+
+button > a {
+  text-decoration: none;
+  color: black;
+}
+
+.bg-light {
+  background-color: #f8f9fa !important;
+}
+
+.btn-hov-grey:hover {
+  background-color: grey !important;
+}
+
+.d-block {
+  display: block;
+}
+
+.display-none {
+  display: none;
+}
+
+.hov-opacity-half:hover {
+  opacity: 0.5;
+  transition: 0.4s;
+}
+
+i {
+  font-family: 'Font Awesome Regular' !important;
+}
+
+.img48 {
+  width: 48px;
+  height: 48px;
+}
+
+.img64 {
+  width: 64px;
+  height: 64px;
+}
+
+.form-control {
+  box-shadow: 2px 2px black;
+}
+
+.form-control:focus {
+  box-shadow: 2px 4px #007bff;
+  transition: 0.3s ease-in-out;
+}
+
+.font-rounder {
+  font-family: Rounder
+}
+
+.overflow-hidden {
+  overflow: hidden;
+}

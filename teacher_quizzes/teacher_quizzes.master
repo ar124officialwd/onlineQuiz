@@ -1,0 +1,41 @@
+﻿<%@ Master Language="C#" MasterPageFile="~/dashboard.master" AutoEventWireup="true" CodeBehind="teacher_quizzes.master.cs" Inherits="onlineQuiz_bsef17m35.teacher_quizes.teacher_quizes" %>
+<%@ MasterType VirtualPath="~/dashboard.master"%>
+
+<asp:Content runat="server" ContentPlaceHolderID="dashboardHead">
+  <asp:ContentPlaceHolder runat="server" ID="teacherQuizHead">
+  </asp:ContentPlaceHolder>
+</asp:Content>
+
+<asp:Content runat="server" ContentPlaceHolderID="DashboardNavigation">
+  <div class="menu d-flex flex-row align-items-center px-2">
+    <div class="px-2 nav-item">
+      <a href="all_quizzes.aspx" class="nav-link" id="teacherLinkAllQuizzes">All Quizzes</a>
+    </div>
+
+    <div class="px-2 nav-item">
+      <a href="#" class="nav-link" id="teacherLinkSubmission">Submissions</a>
+    </div>
+
+    <div class="px-2 nav-item">
+      <a href="new_quiz.aspx" class="nav-link" id="teacherLinkNewQuiz">New Quiz</a>
+    </div>
+  </div>
+</asp:Content>
+
+<asp:Content runat="server" ContentPlaceHolderID="dashboardPlaceHolder">
+  <div class="quizBoard">
+    <div class="placeHolder quizBoardMain">
+      <asp:ContentPlaceHolder runat="server" ID="quizes">
+      </asp:ContentPlaceHolder>
+    </div>
+  </div>
+
+  <script>
+    $(document).ready(() => {
+      const quizzesButton = $("[id$=dashboardQuizzesButton]");
+      if (quizzesButton) {
+        quizzesButton.addClass('btn-active text-dark');
+      }
+    });
+  </script>
+</asp:Content>

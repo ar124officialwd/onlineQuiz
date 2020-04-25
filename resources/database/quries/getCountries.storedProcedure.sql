@@ -1,0 +1,13 @@
+use [onlineQuiz-bsef17m35];
+
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+
+CREATE PROCEDURE getCountries
+AS
+BEGIN
+	SELECT * FROM Country;
+END
+GO

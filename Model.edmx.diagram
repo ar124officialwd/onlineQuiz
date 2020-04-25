@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="c9f034983c4649f58147af93b5b49497" Name="Diagram1" ShowGrid="true" ZoomLevel="100">
+        <EntityTypeShape EntityType="Model.Blacklist" Width="1.5" PointX="3.25" PointY="10.375" IsExpanded="false" />
+        <EntityTypeShape EntityType="Model.Country" Width="1.5" PointX="0.625" PointY="6.5" IsExpanded="false" />
+        <EntityTypeShape EntityType="Model.EndUser" Width="1.5" PointX="4.625" PointY="5.625" IsExpanded="false" />
+        <EntityTypeShape EntityType="Model.EndUserType" Width="1.5" PointX="0.625" PointY="5.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="Model.Gender" Width="1.5" PointX="0.625" PointY="7.25" IsExpanded="false" />
+        <EntityTypeShape EntityType="Model.Question" Width="1.5" PointX="6.25" PointY="8" IsExpanded="false" />
+        <EntityTypeShape EntityType="Model.QuestionOption" Width="1.5" PointX="8.375" PointY="8" IsExpanded="false" />
+        <EntityTypeShape EntityType="Model.QuestionType" Width="1.5" PointX="7.375" PointY="8.625" IsExpanded="false" />
+        <EntityTypeShape EntityType="Model.Quiz" Width="1.5" PointX="5.125" PointY="7.375" IsExpanded="false" />
+        <EntityTypeShape EntityType="Model.Student" Width="1.5" PointX="3.625" PointY="6.625" IsExpanded="false" />
+        <EntityTypeShape EntityType="Model.Submission" Width="1.5" PointX="3.25" PointY="9.375" IsExpanded="false" />
+        <EntityTypeShape EntityType="Model.sysdiagrams" Width="1.5" PointX="0.75" PointY="0.75" IsExpanded="false" />
+        <EntityTypeShape EntityType="Model.Teacher" Width="1.5" PointX="5.5" PointY="6.625" IsExpanded="false" />
+        <EntityTypeShape EntityType="Model.Visibility" Width="1.5" PointX="5.75" PointY="9.375" IsExpanded="false" />
+        <EntityTypeShape EntityType="Model.Whitelist" Width="1.5" PointX="5.75" PointY="10.375" IsExpanded="false" />
+        <AssociationConnector Association="Model.FK_Blacklist_Quiz" ManuallyRouted="false" />
+        <AssociationConnector Association="Model.FK_Country_User1" ManuallyRouted="false" />
+        <AssociationConnector Association="Model.FK_EndUserTypeEndUser" ManuallyRouted="false" />
+        <AssociationConnector Association="Model.FK_Gender_User1" ManuallyRouted="false" />
+        <AssociationConnector Association="Model.FK_Student_User1" ManuallyRouted="false" />
+        <AssociationConnector Association="Model.FK_Teacher_User1" ManuallyRouted="false" />
+        <AssociationConnector Association="Model.FK_Question_QuestionType" ManuallyRouted="false" />
+        <AssociationConnector Association="Model.FK_Question_Quiz" ManuallyRouted="false" />
+        <AssociationConnector Association="Model.FK_QuestionOption_Question" ManuallyRouted="false" />
+        <AssociationConnector Association="Model.FK_Quiz_Teacher1" ManuallyRouted="false" />
+        <AssociationConnector Association="Model.FK_Quiz_Visibility1" ManuallyRouted="false" />
+        <AssociationConnector Association="Model.FK_Submission_Quiz" ManuallyRouted="false" />
+        <AssociationConnector Association="Model.FK_Whitelist_Quiz" ManuallyRouted="false" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>

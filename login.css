@@ -1,0 +1,35 @@
+﻿#loginForm {
+  display: grid;
+  grid-template-columns: repeat(3, 33.33%);
+  grid-template-rows: 64px auto;
+}
+
+@media (min-height: 250px) {
+  #loginForm {
+    margin-top: 10%;
+  }
+}
+
+@media (min-width: 500px) {
+  #loginForm {
+    margin-left: 33.33%;
+    width: 33.33%;
+  }
+}
+
+#loginForm .logo {
+  grid-area: 1/2/2/3;
+  background-position: 2px 2px;
+  z-index: 2;
+}
+
+#loginForm > .form, #loginMessages {
+  margin-top: 32px !important;
+  padding-top: 32px !important;
+  grid-area: 1/1/-1/-1;
+  z-index: 1;
+}
+
+#loginMessages {
+  min-height: 250px;
+}

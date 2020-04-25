@@ -1,0 +1,9 @@
+﻿.signup-form {
+  overflow: auto !important;
+}
+
+#profilePicture:hover {
+  opacity: 0.5;
+  transition: 0.5s ease-in-out;
+}
+

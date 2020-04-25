@@ -1,0 +1,18 @@
+﻿@media (min-width: 768px) {
+  .quizBoard, .quizBoardNavigation, .quizBoardMain {
+    position: relative;
+  }
+
+  .quizBoard {
+    height: 100%;
+  }
+
+  .quizBoardMain {
+    max-height: 20%;
+  }
+
+  .quizBoardMain {
+    max-height: 100%;
+    overflow: auto;
+  }
+}

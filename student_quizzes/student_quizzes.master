@@ -1,0 +1,35 @@
+﻿<%@ Master Language="C#" MasterPageFile="~/dashboard.master" AutoEventWireup="true" CodeBehind="student_quizzes.master.cs" Inherits="onlineQuiz_bsef17m35.student_quizzes.student_quizzes" %>
+<%@ MasterType VirtualPath="~/dashboard.master" %>
+
+<asp:Content ID="Content1" ContentPlaceHolderID="dashboardHead" runat="server">
+</asp:Content>
+
+<asp:Content runat="server" ContentPlaceHolderID="DashboardNavigation">
+  <li class="px-2 nav-item">
+    <a href="open_quizzes.aspx" class="nav-link" id="studentLinkOpenQuizzes">Open Quizzes</a>
+  </li>
+  <li class="px-2 nav-item">
+    <a href="#" class="nav-link" id="studentLinkMySubmissions">My Submissions</a>
+  </li>
+  <li class="px-2 nav-item">
+    <a href="#" class="nav-link" id="studentLinkResults">Results</a>
+  </li>
+</asp:Content>
+
+<asp:Content ID="Content2" ContentPlaceHolderID="dashboardPlaceHolder" runat="server">
+  <div class="quizBoard">
+    <div class="placeHolder quizBoardMain">
+      <asp:ContentPlaceHolder runat="server" ID="quizes">
+      </asp:ContentPlaceHolder>
+    </div>
+  </div>
+
+  <script>
+    $(document).ready(() => {
+      const quizzesButton = $("[id$=dashboardQuizzesButton]");
+      if (quizzesButton) {
+        quizzesButton.addClass('btn-active text-dark');
+      }
+    });
+  </script>
+</asp:Content>

@@ -1,0 +1,55 @@
+﻿<%@ Master Language="C#" AutoEventWireup="true" CodeBehind="index.Master.cs" Inherits="WebApplication1.Site1" %>
+
+<!DOCTYPE html>
+
+<html>
+<head runat="server">
+  <title>Online Quiz System</title>
+  <script src="/jQuery.js" type="text/javascript"></script>
+  <script src="/bootstrap/js/bootstrap.bundle.min.js" type="text/javascript"></script>
+  <script src="/global.js" type="text/javascript"></script>
+  <link rel="stylesheet" href="bootstrap/css/bootstrap.css" type="text/css" />
+  <link rel="stylesheet" href="font-awesome/css/fontawesome.css" type="text/css" />
+  <link rel="stylesheet" href="style.css" type="text/css" />
+  <link rel="stylesheet" href="index.master.css" type="text/css" />
+
+  <asp:ContentPlaceHolder ID="indexHead" runat="server">
+  </asp:ContentPlaceHolder>
+</head>
+<body>
+  <form runat="server" id="indexMaster" class="p-0 m-0">
+    <div class="layout">
+      <div class="navbar navbar-expand-md bg-light d-flex flex-row align-items-center px-2">
+        <div class="navbar-brand d-flex flex-row align-items-center px-1">
+          <img src="/resources/images/logo.png" class="img64 px-1" />
+          <h6>Online Quiz System</h6>
+        </div>
+
+        <button class="navbar-toggler" type="button" data-toggle="collapse"
+          data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
+          aria-expanded="false" aria-label="Toggle navigation">
+          Menu
+        </button>
+
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+          <ul class="navbar-nav">
+            <asp:ContentPlaceHolder runat="server" ID="NavbarNav">
+            </asp:ContentPlaceHolder>
+          </ul>
+        </div>
+      </div>
+
+      <div class="main">
+          <asp:ContentPlaceHolder ID="mainContent" runat="server">
+          </asp:ContentPlaceHolder>
+      </div>
+
+      <div class="footer bg-dark text-light">
+        <div class="text-center font-rounder p-3">
+          An online system being developed as University Term Project
+        </div>
+      </div>
+    </div>
+  </form>
+</body>
+</html>
