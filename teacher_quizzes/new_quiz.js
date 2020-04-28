@@ -7,6 +7,7 @@ class Question {
     this.type = '';
     this.options = [];
     this.marks = 0;
+    this.validOptionAdded = false;
   }
 }
 
@@ -39,7 +40,7 @@ function questionTypeChange() {
   const questionType = $("[id$=questionType]").find(":selected");
   const questionOptions = $("[id$=questionOptions]");
 
-  if (questionType.val() == "Multiple Choice") {
+  if (questionType.val() == "Multiple Choice" || questionType.val() == "Checkboxes") {
     questionOptions.fadeIn();
   } else {
     questionOptions.fadeOut();
@@ -200,6 +201,7 @@ function addEmail() {
 
 /* add another question option */
 function addQuestionOption() {
+  const questionType = $("[id$=questionType]");
   const optionValue = $("[id$=questionOptionValue]");
   const optionLabel = $("[id$=questionOptionLabel]");
   const optionValidCheckBox = $("[id$=questionOptionValidity]");
@@ -230,12 +232,16 @@ function addQuestionOption() {
   const validity = optionValidCheckBox.is(":checked");
   sessionQuestions[currentQuestion].options[currentOption] =
     new Option(value, validity);
+  if (validity && questionType.val() == "Multiple Choice") {
+    optionValidCheckBox.attr("disabled", "true");
+    optionValidCheckBox.prop("checked", false);
+  }
 
   /* reset option */
   optionLabel.text(optionLabel.text().replace(/[\d]/,
     sessionQuestions[currentQuestion].options.length + 1));
   optionValue.val('');
-  optionValidCheckBox.removeAttr("checked", false);
+  optionValidCheckBox.prop("checked", false);
 
   /* show existing options */
   const existingOptions = $("[id$=existingOptions]");
@@ -321,7 +327,8 @@ function addAnotherQuestion() {
   sessionQuestions[currentQuestion].description = questionDescription.val();
   sessionQuestions[currentQuestion].type = questionType.val();
   sessionQuestions[currentQuestion].marks = Number(questionMarks.val());
-  if (questionType.val() != "Multiple Choice") {
+  if (questionType.val() != "Multiple Choice" &&
+    questionType.val() != "Checkboxes") {
     sessionQuestions[currentQuestion].options = null;
   }
 

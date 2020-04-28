@@ -115,7 +115,7 @@ namespace onlineQuiz_bsef17m35.teacher_quizes
           db.Question.Add(newQuestion);
           db.SaveChanges();
 
-          if (question.type == "Multiple Choice") {
+          if (question.type == "Multiple Choice" || question.type == "Checkboxes") {
             foreach (var option in question.options) {
               QuestionOption newOption = new QuestionOption
               {
@@ -163,32 +163,5 @@ namespace onlineQuiz_bsef17m35.teacher_quizes
         throw error;
       }
     }
-  }
-
-  public class LocalQuiz
-  {
-    public String title { get; set; }
-    public String descritption { get; set; }
-    public int totalMarks { get; set; }
-    public int passingMarks { get; set; }
-    public String visibility { get; set; }
-    public String[] blackList { get; set; }
-    public String[] whiteList { get; set; }
-    public LocalQuestion[] questions { get; set; }
-  }
-
-  public class LocalQuestion
-  {
-    public String question { get; set; }
-    public String type { get; set; }
-    public int marks { get; set; }
-    public String description { get; set; }
-    public LocalOption[] options { get; set; }
-  }
-
-  public class LocalOption
-  {
-    public String value { get; set; }
-    public bool valid { get; set; }
   }
 }
