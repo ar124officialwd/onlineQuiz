@@ -7,7 +7,7 @@
   <div runat="server" class="p-2 d-flex flex-column" id="allQuizesContainer">
     <asp:Repeater runat="server" ID="AllQuizzesRepeater">
       <ItemTemplate>
-        <div class="asp-panel p-2">
+        <div class="asp-panel p-2 m-1">
           <div class="alert alert-dark p-2"><b><%# Eval("title") %></b></div>
           <div class="p-2"><b><%# Eval("description") %></b></div>
 
@@ -45,7 +45,11 @@
 
           <div class="d-flex flex-row-reverse p-2">
             <button class="btn btn-danger">Delete</button>
-            <button class="btn btn-light mr-1 field">Edit</button>
+            <button class="btn btn-light mr-1">Edit</button>
+            <asp:LinkButton runat="server" CssClass="btn btn-light mr-1"
+              OnClick="ViewQuiz_Click" CommandArgument='<%# Eval("id") %>'
+              Text="View">
+            </asp:LinkButton>
           </div>
         </div>
       </ItemTemplate>

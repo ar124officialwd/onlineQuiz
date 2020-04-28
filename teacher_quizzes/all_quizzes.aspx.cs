@@ -26,5 +26,14 @@ namespace onlineQuiz_bsef17m35.teacher_quizes
       AllQuizzesRepeater.DataSource = allQuizzes;
       AllQuizzesRepeater.DataBind();
     }
+
+    protected void ViewQuiz_Click(object sender, EventArgs e)
+    {
+      var quizId = Int32.Parse(((LinkButton)sender).CommandArgument);
+      var teacherId = Int32.Parse(Session["userId"].ToString());
+
+      Response.Redirect("/teacher_quizzes/view_quiz.aspx?teacherId=" + teacherId +
+        "&quizId=" + quizId);
+    }
   }
 }
