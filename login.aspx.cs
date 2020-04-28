@@ -92,7 +92,7 @@ namespace onlineQuiz_bsef17m35
         }
 
         /* set up session */
-        Session.Add("id", user.id.ToString());
+        Session.Add("userId", user.id.ToString());
         Session.Add("firstName", user.firstName);
         Session.Add("userType", user.type);
         Session.Add("profilePicture", user.profilePicturePath);
