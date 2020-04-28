@@ -33,9 +33,8 @@
 
           <div class="p-1">
             <asp:Button runat="server" CssClass="btn btn-primary quizLinkButton"
-              Text="Take Quiz" OnClick="OpenQuiz"/>
-            <span data-teacherEmail="<%# Eval("teacherEmail") %>"></span>
-            <span data-quizId="<%# Eval("id") %>"></span>
+              Text="Take Quiz" OnClick="OpenQuiz" CommandName='<%# Eval("teacherId") %>'
+              CommandArgument='<%# Eval("id") %>'/>
           </div>
         </div>
       </ItemTemplate>

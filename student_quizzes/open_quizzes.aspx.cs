@@ -36,10 +36,11 @@ namespace onlineQuiz_bsef17m35.student_quizzes
 
     protected void OpenQuiz(object sender, EventArgs e)
     {
-      var url = "~/take_quiz.aspx?" + 
-        "teacherEmail=" + selectedQuizEmail.Value + "&" +
-        "quizId=" + selectedQuizId.Value;
-      Response.Redirect(url);
+      var teacherId = Int32.Parse(((Button)sender).CommandName);
+      var quizId = Int32.Parse(((Button)sender).CommandArgument);
+
+      Response.Redirect("/student_quizzes/take_quiz.aspx?teacherId=" + teacherId
+        + "&quizId=" + quizId);
     }
   }
 }
