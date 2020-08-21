@@ -26,7 +26,7 @@ namespace onlineQuiz_bsef17m35.teacher_quizes
 
         /* try saving quiz */
         try {
-          if (Save_Quiz(quiz.Value)) {
+          if (SaveQuiz(quiz.Value)) {
             response.Visible = true;
             newQuizForm.Visible = false;
             applicationError.Visible = false;
@@ -66,100 +66,79 @@ namespace onlineQuiz_bsef17m35.teacher_quizes
         {
           scriptManager.RegisterClientScriptBlock(scriptType, scriptName, scriptText, true);
         }
+
+        if (!string.IsNullOrEmpty(Request.QueryString["quizId"])) {
+          try {
+            var teacherId = Int32.Parse(Session["userId"].ToString());
+            var quizId = Int32.Parse(Request.QueryString["quizId"]);
+
+            var existingQuiz = db.Quiz.Where(q => q.teacherId == teacherId &&
+              q.id == quizId).Single();
+
+            if (existingQuiz.Submission.Count > 0)
+            {
+              quizLoadError.InnerText = "Sorry, but this quiz cannot be updated/edited!";
+              quizLoadError.Visible = true;
+              newQuizForm.Visible = false;
+
+              return;
+            }
+
+            var localQuiz = LocalQuiz.ToLocalQuiz(existingQuiz);
+            if (localQuiz.visibility == "Public")
+            {
+              var blackList = db.Blacklist.Where(b => b.quizId == quizId &&
+                b.teacherId == teacherId).ToArray();
+              foreach (var bl in blackList)
+              {
+                localQuiz.blackList.Append(bl.email);
+              }
+            } else
+            {
+              var whiteList = db.Whitelist.Where(b => b.quizId == quizId &&
+                b.teacherId == teacherId).ToArray();
+              foreach (var wl in whiteList)
+              {
+                localQuiz.whiteList.Append(wl.email);
+              }
+            }
+
+            quiz.Value = JsonConvert.SerializeObject(localQuiz);
+            updateMode.Value = "true";
+            ViewState["quizId"] = Request.QueryString["quizId"];
+          } catch (Exception err)
+          {
+            quizLoadError.InnerText = "Something went wrong, Unable to load quiz!";
+            quizLoadError.Visible = true;
+            newQuizForm.Visible = false;
+          }
+        }
       }
     }
-    protected bool Save_Quiz(String quizJSON)
+    protected bool SaveQuiz(String quizJson)
     {
       DatabaseEntities db = new DatabaseEntities();
-      var transaction = db.Database.BeginTransaction();
 
       try {
-        var userType = Request.Cookies["login"]["userType"];
-        var userId = -1;
-
-        try {
-          userId = Int32.Parse(Request.Cookies["login"]["userId"]);
-        } catch (Exception) {
-          throw new Exception();
-        } 
+        var userId = Int32.Parse(Session["userId"].ToString());
 
         /* make sure safety replacements are reverted */
-        quizJSON.Replace("&lt;", "<");
-        quizJSON.Replace("&gt;", ">");
+        quizJson.Replace("&lt;", "<");
+        quizJson.Replace("&gt;", ">");
 
-        LocalQuiz quizRawObject = JsonConvert.DeserializeObject<LocalQuiz>(quizJSON);
+        LocalQuiz localQuiz = JsonConvert.DeserializeObject<LocalQuiz>(quizJson);
+        localQuiz.teacherId = userId;
 
-        /* set up quiz */
-        Quiz newQuiz = new Quiz
+        if (updateMode.Value == "true")
         {
-          title = quizRawObject.title,
-          description = quizRawObject.descritption,
-          totalMarks = quizRawObject.totalMarks,
-          passingMarks = quizRawObject.passingMarks,
-          teacherId = userId,
-          visibility = quizRawObject.visibility
-        };
-        db.Quiz.Add(newQuiz);
-        db.SaveChanges();
-
-        foreach (var question in quizRawObject.questions) {
-          Question newQuestion = new Question
-          {
-            quizId = newQuiz.id,
-            title = question.question,
-            description = question.description, 
-            teacherId = userId,
-            type = question.type,
-            marks = question.marks
-          };
-          db.Question.Add(newQuestion);
-          db.SaveChanges();
-
-          if (question.type == "Multiple Choice" || question.type == "Checkboxes") {
-            foreach (var option in question.options) {
-              QuestionOption newOption = new QuestionOption
-              {
-                value = option.value,
-                valid = option.valid,
-                teacherId = userId,
-                quizId = newQuiz.id,
-                questionId = newQuestion.id
-              };
-              db.QuestionOption.Add(newOption);
-              db.SaveChanges();
-            }
-          }
-
-        }
-
-        if (newQuiz.visibility == "Public") {
-          foreach (var blackEmail in quizRawObject.blackList) {
-            Blacklist newBlackEmail = new Blacklist
-            {
-              email = blackEmail,
-              teacherId = userId,
-              quizId = newQuiz.id
-            };
-            db.Blacklist.Add(newBlackEmail);
-            db.SaveChanges();
-          }
+          localQuiz.id = Int32.Parse(ViewState["quizId"].ToString());
+          localQuiz.UpdateQuiz(db);
         } else {
-          foreach (var whiteEmail in quizRawObject.whiteList) {
-            Whitelist newWhiteEmail = new Whitelist
-            {
-              email = whiteEmail,
-              teacherId = userId,
-              quizId = newQuiz.id
-            };
-            db.Whitelist.Add(newWhiteEmail);
-            db.SaveChanges();
-          }
+          localQuiz.CreateQuiz(db);
         }
 
-        transaction.Commit();
         return true;
       } catch (Exception error) {
-        transaction.Rollback();
         throw error;
       }
     }

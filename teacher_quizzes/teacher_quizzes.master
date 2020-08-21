@@ -13,7 +13,11 @@
     </div>
 
     <div class="px-2 nav-item">
-      <a href="#" class="nav-link" id="teacherLinkSubmission">Submissions</a>
+      <a href="submissions.aspx" class="nav-link" id="teacherLinkSubmission">Submissions</a>
+    </div>
+
+    <div class="px-2 nav-item">
+      <a href="delivered_results.aspx" class="nav-link" id="teacherLinkDeliveredResults">Delivered Results</a>
     </div>
 
     <div class="px-2 nav-item">

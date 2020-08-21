@@ -164,7 +164,6 @@ namespace onlineQuiz_bsef17m35
       signupMessages.Visible = false;
       signupErrors.Visible = false;
       String loginLink = "<span><a href='/login.aspx'>Login</a></span>";
-      String profilePictureLink = "/resources/images/profile_pictures/default/";
       DatabaseEntities db = new DatabaseEntities();
 
       var user = db.EndUser.FirstOrDefault(eu => eu.email == email.Text);
@@ -195,7 +194,6 @@ namespace onlineQuiz_bsef17m35
       }
 
       /* check image type - if file uploaded */
-      var _profilePictureSet = false;
       if (isProfilePictureSet.Value == "true" && profilePictureFileUpload.HasFile)
       {
         if (profilePictureFileUpload.PostedFile.ContentType != "image/png")
@@ -204,8 +202,6 @@ namespace onlineQuiz_bsef17m35
           signupErrors.Visible = true;
           return;
         }
-
-        _profilePictureSet = true;
       }
 
       try
@@ -216,30 +212,17 @@ namespace onlineQuiz_bsef17m35
         user.secondName = secondName.Text;
         user.countryCode = country.SelectedValue;
         user.city = city.Text;
+        user.active = true;
+        user.profilePicturePath = profilePicture.Src;
 
         user.gender = "Female";
-        var gender = "female.png";
-        if (male.Checked || unspecified.Checked) {
-          gender = "male.png";
-          user.gender = "Male";
-        }
-        if (unspecified.Checked)
-          user.gender = "Unspecified";
+        if (male.Checked) user.gender = "Male";
+        if (unspecified.Checked) user.gender = "Unspecified";
 
         if (teacher.Checked)
-        {
           user.type = "teacher";
-          profilePictureLink += "teacher_" + gender;
-        }
         else
-        {
           user.type = "student";
-          profilePictureLink += "student_" + gender;
-        }
-
-        if (!(isProfilePictureSet.Value == "true")) {
-          user.profilePicturePath = profilePictureLink;
-        }
 
         if (Sender.CommandName != "update")
           db.EndUser.Add(user);
@@ -247,7 +230,7 @@ namespace onlineQuiz_bsef17m35
 
 
         /* set profile picture - if user added */
-        if (_profilePictureSet)
+        if (isProfilePictureSet.Value == "true")
         {
           if (profilePictureFileUpload.HasFile) {
             var fileInfo = new FileInfo(profilePictureFileUpload.PostedFile.FileName);
@@ -289,7 +272,7 @@ namespace onlineQuiz_bsef17m35
           db.SaveChanges();
         }
       }
-      catch (Exception)
+      catch (Exception err)
       {
         var _message = "Something went wrong!";
         signupErrors.InnerText = _message;
@@ -311,7 +294,7 @@ namespace onlineQuiz_bsef17m35
         Response.Redirect("/profile/profile.aspx?updated=true");
       }
 
-      var message = "Success: Your account has been successfully created!";
+      var message = "Your account has been successfully created!";
       message += "Please " + loginLink + " to continue.";
       signupMessages.Visible = true;
       signupMessages.InnerHtml = message;

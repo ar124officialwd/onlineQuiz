@@ -1,4 +1,5 @@
 ﻿<%@ Page Title="" Language="C#" MasterPageFile="~/teacher_quizzes/teacher_quizzes.master" AutoEventWireup="true" CodeBehind="evaluate_quiz.aspx.cs" Inherits="onlineQuiz_bsef17m35.teacher_quizzes.evaluate_quiz" %>
+<%@ MasterType VirtualPath="~/teacher_quizzes/teacher_quizzes.master" %>
 
 <asp:Content ID="Content1" ContentPlaceHolderID="teacherQuizHead" runat="server">
 </asp:Content>

@@ -118,6 +118,44 @@ function deleteEmailAddress() {
 }
 
 
+/* delete a question */
+function deleteQuestion() {
+  var questionIndex = Number($(this).attr('data-edit-index'));
+
+  if (questionIndex >= 0) {
+    sessionQuestions[currentQuestion] = undefined; // invalidate current question
+    sessionQuestions.splice(questionIndex, 1);
+    currentQuestion = sessionQuestions.length;
+    sessionQuestions[currentQuestion] = new Question();
+
+    showQuestions();
+  }
+}
+
+
+/* delete a question option */
+function deleteQuestionOption() {
+  const optionLabel = $("[id$=questionOptionLabel]");
+  const optionValidCheckBox = $("[id$=questionOptionValidity]");
+
+  const optionIndex = Number($(this).attr('data-edit-index'));
+  if (optionIndex >= 0) {
+    sessionQuestions[currentQuestion].options.splice(optionIndex, 1);
+    showOptions(sessionQuestions[currentQuestion].options);
+    optionLabel.text("Option " + (sessionQuestions[currentQuestion].options.length + 1))
+    optionValidCheckBox.prop("disabled", false);
+    currentOption = sessionQuestions[currentQuestion].options.length;
+
+    if (sessionQuestions[currentQuestion].type == "Multiple Choice") {
+      var valid = sessionQuestions[currentQuestion].options.find(o => o.valid);
+      if (!valid) {
+        optionValidCheckBox.prop("disabled", true);
+      }
+    }
+  }
+}
+
+
 /* add another email address to list(black or white) */
 function addEmail() {
   const visibility = $("[id$=visibility]");
@@ -265,7 +303,6 @@ function addAnotherQuestion() {
   const questionMarksError = $("[id$=questionMarksError]");
   const questionOptionError = $("[id$=questionOptionError]");
   const questionTypeError = $("[id$=questionTypeError]");
-  const existingQuestions = $("[id$=existingQuestions]");
 
   const existingOptions = $("[id$=existingOptions]");
   const optionValue = $("[id$=questionOptionValue]");
@@ -294,7 +331,8 @@ function addAnotherQuestion() {
     questionTypeError.addClass("d-none");
   }
 
-  if (questionType.val() === "Multiple Choice") {
+  if (questionType.val() === "Multiple Choice" ||
+    questionType.val() === "Checkboxes") {
     if (!sessionQuestions[currentQuestion].options.length) {
       questionOptionError.removeClass("d-none");
       return;
@@ -318,7 +356,8 @@ function addAnotherQuestion() {
     /* reset option */
     optionLabel.text("Option 1");
     optionValue.val("");
-    optionValidCheckBox.attr("checked", false);
+    optionValidCheckBox.prop("checked", false);
+    optionValidCheckBox.prop("disabled", false);
     existingOptions.html("");
   }
 
@@ -338,38 +377,14 @@ function addAnotherQuestion() {
   questionType.children().first().attr("selected", "selected");
   questionMarks.val("0");
 
-  /* show all questions */
-  existingQuestions.html("");
-  for (let i = 0; i < sessionQuestions.length; i++) {
-    const div = $(document.createElement('div'))
-      .addClass('alert alert-secondary d-flex flex-row ' +
-        'align-items-center');
-
-    const text = $(document.createElement('div'))
-      .addClass('px-2')
-      .text(sessionQuestions[i].question)
-      .addClass('overflow-hidden');
-
-    const edit = $(document.createElement('div'))
-      .append($(document.createElement('button'))
-        .addClass('btn btn-light')
-        .attr('data-edit-index', i) /* important: sets index to denote which option to edit */
-        .attr('type', 'button')
-        .on('click', editQuestion)
-        .append($(document.createElement('i'))
-          .addClass('far fa-edit')
-        )
-      );
-
-    div.append(edit, text);
-    existingQuestions.append(div);
-  }
 
   currentQuestion = sessionQuestions.length;
   sessionQuestions[currentQuestion] = new Question();
   currentOption = 0;
-}
 
+  /* show questions */
+  showQuestions();
+}
 
 
 /* edit an email address */
@@ -437,7 +452,7 @@ function editQuestionOption() {
 
   const option = sessionQuestions[currentQuestion].options[optionIndex];
   optionValue.val(option.value);
-  optionValidCheckBox.attr("checked", option.valid ? true : false);
+  optionValidCheckBox.prop("checked", option.valid ? true : false);
 
   /* remove existing option */
   sessionQuestions[currentQuestion].options.splice(optionIndex, 1);
@@ -610,33 +625,111 @@ function saveQuiz() {
 /*****************************************************************************/
 /// OTHER FUNCTIONS
 function showOptions(options) {
-  const existingOptions = $("[id$=existingOptions]");
+  const existingOptions = $("[id$=existingOptions]")
+    .html("");
 
   for (let i = 0; i < options.length; i++) {
     const div = $(document.createElement('div'))
-      .addClass('alert alert-secondary d-flex flex-row ' +
-        'align-items-center');
+      .addClass('alert alert-secondary d-flex flex-row' +
+        'align-items-center p-2')
+      .appendTo(existingOptions);
+
+    const validityWrapper = $(document.createElement('span'))
+      .addClass('mr-1')
+      .addClass(options[i].valid ? "text-success" : "text-danger")
+      .appendTo(div);
+    const validity = $(document.createElement('i'))
+      .addClass("fas " + (options[i].valid ? "fa-check-circle" : "fa-times-circle"))
+      .appendTo(validityWrapper);
 
     const text = $(document.createElement('div'))
-      .addClass('px-2')
-      .text(options[i].value);
+      .addClass('mr-1 flex-fill')
+      .text(options[i].value)
+      .appendTo(div);
 
-    const edit = $(document.createElement('div'))
-      .append($(document.createElement('button'))
-        .addClass('btn btn-light')
-        .append($(document.createElement('i'))
-          .addClass('far fa-edit')
-        )
-        .attr('data-edit-index', i) /* important: sets index to denote which option to edit */
-        .attr('type', 'button')
-        .on('click', editQuestionOption)
-      );
+    /* edit option */
+    const editWrapper = $(document.createElement('div'))
+      .addClass("mr-1")
+      .appendTo(div);
 
-    div.append(edit, text);
-    existingOptions.append(div);
+    const editButton = $(document.createElement('button'))
+      .addClass('btn btn-light')
+      .attr('data-edit-index', i) /* important: sets index to denote which option to edit */
+      .attr('type', 'button')
+      .on('click', editQuestionOption)
+      .appendTo(editWrapper)
+
+    const editIcon = $(document.createElement('i'))
+      .addClass('far fa-edit')
+      .appendTo(editButton);
+
+    /* delete option */
+    const deleteWrapper = $(document.createElement('div'))
+      .addClass('mr-1')
+      .appendTo(div);
+
+    const deleteButton = $(document.createElement('button'))
+      .addClass('btn btn-danger')
+      .attr('data-edit-index', i) /* important: sets index to denote which option to edit */
+      .attr('type', 'button')
+      .on('click', deleteQuestionOption)
+      .appendTo(deleteWrapper)
+
+    const deleteIcon = $(document.createElement('i'))
+      .addClass('far fa-trash-alt')
+      .appendTo(deleteButton);
   }
 }
 
+
+/* show Questions */
+function showQuestions() {
+  const existingQuestions = $("[id$=existingQuestions]")
+    .html("");
+
+  for (let i = 0; i < sessionQuestions.length - 1; i++) {
+    const div = $(document.createElement('div'))
+      .addClass('alert alert-secondary d-flex flex-row-reverse ' +
+        'align-items-center p-1 m-1');
+
+
+    const deleteWrapper = $(document.createElement('div'))
+      .addClass("ml-1")
+      .appendTo(div);
+
+    const deleteButton = $(document.createElement('button'))
+      .addClass('btn btn-danger')
+      .attr('data-edit-index', i) /* important: sets index to denote which option to edit */
+      .attr('type', 'button')
+      .on('click', deleteQuestion)
+      .appendTo(deleteWrapper);
+
+    const deleteIcon = $(document.createElement('i'))
+      .addClass("far fa-trash-alt")
+      .appendTo(deleteButton);
+
+    const edit = $(document.createElement('div'))
+      .addClass("ml-1")
+      .append($(document.createElement('button'))
+        .addClass('btn btn-light')
+        .attr('data-edit-index', i) /* important: sets index to denote which option to edit */
+        .attr('type', 'button')
+        .on('click', editQuestion)
+        .append($(document.createElement('i'))
+          .addClass('far fa-edit')
+        ))
+      .appendTo(div);
+
+    const text = $(document.createElement('div'))
+      .addClass('ml-1 flex-fill')
+      .text(sessionQuestions[i].question)
+      .addClass('overflow-hidden')
+      .appendTo(div);
+
+    div.append(edit, text);
+    existingQuestions.append(div);
+  }
+}
 
 /* validate an email address
   @utilityFunction
@@ -661,6 +754,31 @@ function bootstrap() {
 
   whiteList.fadeOut();
   questionOptions.fadeOut();
+
+  var updateMode = $("[id$=updateMode]");
+  if (updateMode.val() == "true") {
+    var quizJSON = $("[id$=quiz]");
+    var quiz = JSON.parse(quizJSON.val());
+
+    $("[id$=submitButton]").text("Update")
+      .addClass("btn-success");
+    $("[id$=title]").val(quiz.title);
+    $("[id$=description]").val(quiz.description);
+    $("[id$=totalMarks]").val(quiz.totalMarks);
+    $("[id$=passingMarks]").val(quiz.passingMarks);
+    $("[id$=visibility]").val(quiz.visibility);
+    globalBlackList = quiz.blackList || [];
+    globalWhiteList = quiz.whiteList || [];
+
+    sessionQuestions.splice(0, sessionQuestions.length); // truncate questions first
+    for (const q of quiz.questions) {
+      sessionQuestions.push(q);
+    }
+
+    currentQuestion = sessionQuestions.length;
+    sessionQuestions[currentQuestion] = new Question();
+    showQuestions();
+  }
 }
 
 $(document).ready(() => {

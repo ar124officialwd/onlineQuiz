@@ -9,5 +9,14 @@ namespace onlineQuiz_bsef17m35
   {
     public String value { get; set; }
     public bool valid { get; set; }
+
+    public QuestionOption ToQuestionOption()
+    {
+      return new QuestionOption
+      {
+        value = value,
+        valid = valid
+      };
+    }
   }
 }

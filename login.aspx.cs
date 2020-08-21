@@ -85,7 +85,8 @@ namespace onlineQuiz_bsef17m35
       try
       {
         try {
-          user = db.EndUser.First(eu => eu.email == _email && eu.password == _password);
+          user = db.EndUser.First(eu => eu.email == _email &&
+            eu.password == _password && eu.active == true);
         } catch
         {
           throw new SessionException();

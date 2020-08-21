@@ -157,5 +157,19 @@ namespace onlineQuiz_bsef17m35.teacher_quizzes
     /// To modify move field declaration from designer file to code-behind file.
     /// </remarks>
     protected global::System.Web.UI.HtmlControls.HtmlButton issueResult;
+
+    /// <summary>
+    /// Master property.
+    /// </summary>
+    /// <remarks>
+    /// Auto-generated property.
+    /// </remarks>
+    public new onlineQuiz_bsef17m35.teacher_quizes.teacher_quizes Master
+    {
+      get
+      {
+        return ((onlineQuiz_bsef17m35.teacher_quizes.teacher_quizes)(base.Master));
+      }
+    }
   }
 }

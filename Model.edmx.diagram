@@ -4,22 +4,23 @@
   <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
-      <Diagram DiagramId="c9f034983c4649f58147af93b5b49497" Name="Diagram1" ShowGrid="true" ZoomLevel="100">
-        <EntityTypeShape EntityType="Model.Blacklist" Width="1.5" PointX="3.25" PointY="10.375" IsExpanded="false" />
-        <EntityTypeShape EntityType="Model.Country" Width="1.5" PointX="0.625" PointY="6.5" IsExpanded="false" />
-        <EntityTypeShape EntityType="Model.EndUser" Width="1.5" PointX="4.625" PointY="5.625" IsExpanded="false" />
-        <EntityTypeShape EntityType="Model.EndUserType" Width="1.5" PointX="0.625" PointY="5.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="Model.Gender" Width="1.5" PointX="0.625" PointY="7.25" IsExpanded="false" />
-        <EntityTypeShape EntityType="Model.Question" Width="1.5" PointX="6.25" PointY="8" IsExpanded="false" />
-        <EntityTypeShape EntityType="Model.QuestionOption" Width="1.5" PointX="8.375" PointY="8" IsExpanded="false" />
-        <EntityTypeShape EntityType="Model.QuestionType" Width="1.5" PointX="7.375" PointY="8.625" IsExpanded="false" />
-        <EntityTypeShape EntityType="Model.Quiz" Width="1.5" PointX="5.125" PointY="7.375" IsExpanded="false" />
-        <EntityTypeShape EntityType="Model.Student" Width="1.5" PointX="3.625" PointY="6.625" IsExpanded="false" />
-        <EntityTypeShape EntityType="Model.Submission" Width="1.5" PointX="3.25" PointY="9.375" IsExpanded="false" />
-        <EntityTypeShape EntityType="Model.sysdiagrams" Width="1.5" PointX="0.75" PointY="0.75" IsExpanded="false" />
-        <EntityTypeShape EntityType="Model.Teacher" Width="1.5" PointX="5.5" PointY="6.625" IsExpanded="false" />
-        <EntityTypeShape EntityType="Model.Visibility" Width="1.5" PointX="5.75" PointY="9.375" IsExpanded="false" />
-        <EntityTypeShape EntityType="Model.Whitelist" Width="1.5" PointX="5.75" PointY="10.375" IsExpanded="false" />
+      <Diagram DiagramId="3dfba70847be4d7ea8eea6b5a2580fac" Name="Diagram1">
+        <EntityTypeShape EntityType="Model.Blacklist" Width="1.5" PointX="9.75" PointY="5.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="Model.Country" Width="1.5" PointX="0.75" PointY="7.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="Model.EndUser" Width="1.5" PointX="3" PointY="6.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="Model.EndUserType" Width="1.5" PointX="0.75" PointY="4.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="Model.Gender" Width="1.5" PointX="0.75" PointY="10.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="Model.Question" Width="1.5" PointX="12.75" PointY="7.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="Model.QuestionOption" Width="1.5" PointX="15" PointY="8.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="Model.QuestionType" Width="1.5" PointX="10.5" PointY="8.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="Model.Quiz" Width="1.5" PointX="7.5" PointY="7.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="Model.Result" Width="1.5" PointX="12" PointY="11.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="Model.ResultStatus" Width="1.5" PointX="9.75" PointY="18.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="Model.Student" Width="1.5" PointX="5.25" PointY="6.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="Model.Submission" Width="1.5" PointX="9.75" PointY="11.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="Model.Teacher" Width="1.5" PointX="5.25" PointY="8.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="Model.Visibility" Width="1.5" PointX="5.25" PointY="11.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="Model.Whitelist" Width="1.5" PointX="9.75" PointY="14.875" IsExpanded="true" />
         <AssociationConnector Association="Model.FK_Blacklist_Quiz" ManuallyRouted="false" />
         <AssociationConnector Association="Model.FK_Country_User1" ManuallyRouted="false" />
         <AssociationConnector Association="Model.FK_EndUserTypeEndUser" ManuallyRouted="false" />
@@ -33,6 +34,8 @@
         <AssociationConnector Association="Model.FK_Quiz_Visibility1" ManuallyRouted="false" />
         <AssociationConnector Association="Model.FK_Submission_Quiz" ManuallyRouted="false" />
         <AssociationConnector Association="Model.FK_Whitelist_Quiz" ManuallyRouted="false" />
+        <AssociationConnector Association="Model.FK_Result_ResultStatus" ManuallyRouted="false" />
+        <AssociationConnector Association="Model.FK_Result_Submission" ManuallyRouted="false" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

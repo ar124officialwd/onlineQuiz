@@ -17,23 +17,34 @@
       Your profile has been successfully updated!
     </div>
 
-    <div runat="server" id="accountDeleteError" class="p-2 alert alert-success"
+    <div runat="server" id="accountDeActivateError" class="p-2 alert alert-success"
       visible="false">
-      Something went wrong! We are sorry, but we are unable to delete your 
+      Something went wrong! We are sorry, but we are unable to de-activate your 
         account at the moment.
     </div>
 
     <div runat="server" id="DeleteAccountModel" class="p-4" visible="false">
       <div class="p-2 alert alert-warning">
         <div>
-          You are about delete your account. This can be dangerous as this would delete:
+          You are about to de-activate your account. This would disable:
         </div>
-        <div class="p-1">
+
+        <div runat="server" class="p-1" id="teacherDisabilities" visible="false">
           <ul>
             <li>Your account</li>
             <li>All quizzes added by you</li>
-            <li>All submissions to your every quiz</li>
           </ul>
+        </div>
+
+        <div runat="server" class="p-1" id="studentDisabilities" visible="false">
+          <ul>
+            <li>Your account</li>
+          </ul>
+        </div>
+
+        <div>
+          You can always Re-Activate your account by visting
+          <a href="/activate_account.aspx">Re-Activation</a> page.
         </div>
       </div>
 
@@ -47,8 +58,8 @@
       <div class="alert alert-danger d-flex flex-row flex-wrap">
         <div class="alert alert-danger flex-grow-1">Yes, I understand!</div>
         <div class="alert alert-danger">
-          <asp:Button runat="server" ID="ReallyDeleteAccount" CssClass="btn btn-danger"
-            Text="Delete Account" OnClick="ReallyDeleteAccount_Click"/>
+          <asp:Button runat="server" ID="ReallyDeActivateAccount" CssClass="btn btn-danger"
+            Text="De-Activate Account" OnClick="ReallyDeActivateAccount_Click"/>
         </div>
       </div>
     </div>
@@ -141,7 +152,7 @@
       <div class="d-flex flex-row-reverse p-2">
         <div id="deleteLink" class="mr-1">
           <a runat="server" id="DeleteProfileLink" class="btn btn-danger"
-            onserverclick="DeleteProfileLink_ServerClick">Delete Account</a>
+            onserverclick="DeActivateProfileLink_ServerClick">De-Activate Account</a>
         </div>
 
         <div id="editLink" class="mr-1">

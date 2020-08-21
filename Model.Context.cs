@@ -36,30 +36,13 @@ namespace onlineQuiz_bsef17m35
         public virtual DbSet<QuestionOption> QuestionOption { get; set; }
         public virtual DbSet<QuestionType> QuestionType { get; set; }
         public virtual DbSet<Quiz> Quiz { get; set; }
+        public virtual DbSet<Result> Result { get; set; }
+        public virtual DbSet<ResultStatus> ResultStatus { get; set; }
         public virtual DbSet<Student> Student { get; set; }
         public virtual DbSet<Submission> Submission { get; set; }
-        public virtual DbSet<sysdiagrams> sysdiagrams { get; set; }
         public virtual DbSet<Teacher> Teacher { get; set; }
         public virtual DbSet<Visibility> Visibility { get; set; }
         public virtual DbSet<Whitelist> Whitelist { get; set; }
-    
-        public virtual ObjectResult<string> existingUsersByEmail(string email)
-        {
-            var emailParameter = email != null ?
-                new ObjectParameter("email", email) :
-                new ObjectParameter("email", typeof(string));
-    
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<string>("existingUsersByEmail", emailParameter);
-        }
-    
-        public virtual ObjectResult<Nullable<int>> existingUsersById(Nullable<int> id)
-        {
-            var idParameter = id.HasValue ?
-                new ObjectParameter("id", id) :
-                new ObjectParameter("id", typeof(int));
-    
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<Nullable<int>>("existingUsersById", idParameter);
-        }
     
         public virtual ObjectResult<getAllQuizzes_Result> getAllQuizzes(Nullable<int> teacherId)
         {
@@ -75,6 +58,19 @@ namespace onlineQuiz_bsef17m35
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<getCountries_Result>("getCountries");
         }
     
+        public virtual ObjectResult<getDeliveredResults_Result> getDeliveredResults(Nullable<int> teacherId, Nullable<int> quizId)
+        {
+            var teacherIdParameter = teacherId.HasValue ?
+                new ObjectParameter("teacherId", teacherId) :
+                new ObjectParameter("teacherId", typeof(int));
+    
+            var quizIdParameter = quizId.HasValue ?
+                new ObjectParameter("quizId", quizId) :
+                new ObjectParameter("quizId", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<getDeliveredResults_Result>("getDeliveredResults", teacherIdParameter, quizIdParameter);
+        }
+    
         public virtual ObjectResult<getLogins_Result> getLogins(string email, string password)
         {
             var emailParameter = email != null ?
@@ -86,6 +82,15 @@ namespace onlineQuiz_bsef17m35
                 new ObjectParameter("password", typeof(string));
     
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<getLogins_Result>("getLogins", emailParameter, passwordParameter);
+        }
+    
+        public virtual ObjectResult<getMySubmissions_Result> getMySubmissions(Nullable<int> studentId)
+        {
+            var studentIdParameter = studentId.HasValue ?
+                new ObjectParameter("studentId", studentId) :
+                new ObjectParameter("studentId", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<getMySubmissions_Result>("getMySubmissions", studentIdParameter);
         }
     
         public virtual ObjectResult<getOpenQuizzes_Result> getOpenQuizzes(Nullable<int> id)
@@ -111,112 +116,48 @@ namespace onlineQuiz_bsef17m35
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<string>("getQuestionTypes");
         }
     
+        public virtual ObjectResult<getResults_Result> getResults(Nullable<int> studentId)
+        {
+            var studentIdParameter = studentId.HasValue ?
+                new ObjectParameter("studentId", studentId) :
+                new ObjectParameter("studentId", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<getResults_Result>("getResults", studentIdParameter);
+        }
+    
+        public virtual ObjectResult<getSubmission_Result> getSubmission(Nullable<int> teacherId, Nullable<int> quizId, Nullable<int> studentId)
+        {
+            var teacherIdParameter = teacherId.HasValue ?
+                new ObjectParameter("teacherId", teacherId) :
+                new ObjectParameter("teacherId", typeof(int));
+    
+            var quizIdParameter = quizId.HasValue ?
+                new ObjectParameter("quizId", quizId) :
+                new ObjectParameter("quizId", typeof(int));
+    
+            var studentIdParameter = studentId.HasValue ?
+                new ObjectParameter("studentId", studentId) :
+                new ObjectParameter("studentId", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<getSubmission_Result>("getSubmission", teacherIdParameter, quizIdParameter, studentIdParameter);
+        }
+    
+        public virtual ObjectResult<getSubmissions_Result> getSubmissions(Nullable<int> teacherId, Nullable<int> quizId)
+        {
+            var teacherIdParameter = teacherId.HasValue ?
+                new ObjectParameter("teacherId", teacherId) :
+                new ObjectParameter("teacherId", typeof(int));
+    
+            var quizIdParameter = quizId.HasValue ?
+                new ObjectParameter("quizId", quizId) :
+                new ObjectParameter("quizId", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<getSubmissions_Result>("getSubmissions", teacherIdParameter, quizIdParameter);
+        }
+    
         public virtual ObjectResult<string> getVisibility()
         {
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<string>("getVisibility");
-        }
-    
-        public virtual int sp_alterdiagram(string diagramname, Nullable<int> owner_id, Nullable<int> version, byte[] definition)
-        {
-            var diagramnameParameter = diagramname != null ?
-                new ObjectParameter("diagramname", diagramname) :
-                new ObjectParameter("diagramname", typeof(string));
-    
-            var owner_idParameter = owner_id.HasValue ?
-                new ObjectParameter("owner_id", owner_id) :
-                new ObjectParameter("owner_id", typeof(int));
-    
-            var versionParameter = version.HasValue ?
-                new ObjectParameter("version", version) :
-                new ObjectParameter("version", typeof(int));
-    
-            var definitionParameter = definition != null ?
-                new ObjectParameter("definition", definition) :
-                new ObjectParameter("definition", typeof(byte[]));
-    
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("sp_alterdiagram", diagramnameParameter, owner_idParameter, versionParameter, definitionParameter);
-        }
-    
-        public virtual int sp_creatediagram(string diagramname, Nullable<int> owner_id, Nullable<int> version, byte[] definition)
-        {
-            var diagramnameParameter = diagramname != null ?
-                new ObjectParameter("diagramname", diagramname) :
-                new ObjectParameter("diagramname", typeof(string));
-    
-            var owner_idParameter = owner_id.HasValue ?
-                new ObjectParameter("owner_id", owner_id) :
-                new ObjectParameter("owner_id", typeof(int));
-    
-            var versionParameter = version.HasValue ?
-                new ObjectParameter("version", version) :
-                new ObjectParameter("version", typeof(int));
-    
-            var definitionParameter = definition != null ?
-                new ObjectParameter("definition", definition) :
-                new ObjectParameter("definition", typeof(byte[]));
-    
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("sp_creatediagram", diagramnameParameter, owner_idParameter, versionParameter, definitionParameter);
-        }
-    
-        public virtual int sp_dropdiagram(string diagramname, Nullable<int> owner_id)
-        {
-            var diagramnameParameter = diagramname != null ?
-                new ObjectParameter("diagramname", diagramname) :
-                new ObjectParameter("diagramname", typeof(string));
-    
-            var owner_idParameter = owner_id.HasValue ?
-                new ObjectParameter("owner_id", owner_id) :
-                new ObjectParameter("owner_id", typeof(int));
-    
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("sp_dropdiagram", diagramnameParameter, owner_idParameter);
-        }
-    
-        public virtual ObjectResult<sp_helpdiagramdefinition_Result> sp_helpdiagramdefinition(string diagramname, Nullable<int> owner_id)
-        {
-            var diagramnameParameter = diagramname != null ?
-                new ObjectParameter("diagramname", diagramname) :
-                new ObjectParameter("diagramname", typeof(string));
-    
-            var owner_idParameter = owner_id.HasValue ?
-                new ObjectParameter("owner_id", owner_id) :
-                new ObjectParameter("owner_id", typeof(int));
-    
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<sp_helpdiagramdefinition_Result>("sp_helpdiagramdefinition", diagramnameParameter, owner_idParameter);
-        }
-    
-        public virtual ObjectResult<sp_helpdiagrams_Result> sp_helpdiagrams(string diagramname, Nullable<int> owner_id)
-        {
-            var diagramnameParameter = diagramname != null ?
-                new ObjectParameter("diagramname", diagramname) :
-                new ObjectParameter("diagramname", typeof(string));
-    
-            var owner_idParameter = owner_id.HasValue ?
-                new ObjectParameter("owner_id", owner_id) :
-                new ObjectParameter("owner_id", typeof(int));
-    
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<sp_helpdiagrams_Result>("sp_helpdiagrams", diagramnameParameter, owner_idParameter);
-        }
-    
-        public virtual int sp_renamediagram(string diagramname, Nullable<int> owner_id, string new_diagramname)
-        {
-            var diagramnameParameter = diagramname != null ?
-                new ObjectParameter("diagramname", diagramname) :
-                new ObjectParameter("diagramname", typeof(string));
-    
-            var owner_idParameter = owner_id.HasValue ?
-                new ObjectParameter("owner_id", owner_id) :
-                new ObjectParameter("owner_id", typeof(int));
-    
-            var new_diagramnameParameter = new_diagramname != null ?
-                new ObjectParameter("new_diagramname", new_diagramname) :
-                new ObjectParameter("new_diagramname", typeof(string));
-    
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("sp_renamediagram", diagramnameParameter, owner_idParameter, new_diagramnameParameter);
-        }
-    
-        public virtual int sp_upgraddiagrams()
-        {
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("sp_upgraddiagrams");
         }
     }
 }

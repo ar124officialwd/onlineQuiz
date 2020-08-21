@@ -56,21 +56,48 @@ namespace onlineQuiz_bsef17m35.profile
       }
     }
 
-    protected void DeleteProfileLink_ServerClick(object sender, EventArgs e)
+    protected void DeActivateProfileLink_ServerClick(object sender, EventArgs e)
     {
       profileLoadError.Visible = false;
       profileUpdated.Visible = false;
       profileView.Visible = false;
       DeleteAccountModel.Visible = true;
+
+      if (Session["userType"].ToString() == "teacher")
+      {
+        teacherDisabilities.Visible = true;
+      } else
+      {
+        studentDisabilities.Visible = true;
+      }
     }
 
-    protected void ReallyDeleteAccount_Click(object sender, EventArgs e)
+    protected void ReallyDeActivateAccount_Click(object sender, EventArgs e)
     {
       var userId = Int32.Parse((String)Session["userId"]);
       var userType = (String)Session["userType"];
       var db = new DatabaseEntities();
-      var transaction = db.Database.BeginTransaction();
 
+      try
+      {
+        var user = db.EndUser.Where(u => u.id == userId && u.type == userType)
+          .Single();
+        user.active = false;
+        db.SaveChanges();
+
+        Session.Abandon();
+        if (Request.Cookies["login"] != null)
+        {
+          Response.Cookies["login"].Expires = DateTime.Now.AddDays(-1);
+        }
+
+        Response.Redirect("/index.aspx");
+      } catch (Exception err)
+      {
+        accountDeActivateError.Visible = true;
+      }
+
+      /*
       try
       {
         var user = db.EndUser.First(eu => eu.id == userId);
@@ -122,6 +149,7 @@ namespace onlineQuiz_bsef17m35.profile
         accountDeleteError.Visible = true;
         profileView.Visible = false;
       }
+      */
     }
   }
 }

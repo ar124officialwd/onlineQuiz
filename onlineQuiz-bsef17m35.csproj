@@ -176,7 +176,10 @@
     <Content Include="index.aspx" />
     <Content Include="index.css" />
     <Content Include="index.master.css" />
-    <Content Include="jQuery.js" />
+    <Content Include="..\..\..\learn\js\jQuery.js">
+      <Link>jQuery.js</Link>
+    </Content>
+    <Content Include="lib.js" />
     <Content Include="login.aspx" />
     <Content Include="login.css" />
     <Content Include="Model.Context.tt">
@@ -192,13 +195,20 @@
     <Content Include="profile\profile.aspx" />
     <Content Include="signup.aspx" />
     <Content Include="signup.css" />
+    <Content Include="student_quizzes\my_submissions.aspx" />
     <Content Include="student_quizzes\open_quizzes.aspx" />
-    <Content Include="take_quiz.aspx" />
+    <Content Include="student_quizzes\results.aspx" />
+    <Content Include="student_quizzes\take_quiz.aspx" />
     <Content Include="teacher_quizzes\all_quizzes.aspx" />
+    <Content Include="teacher_quizzes\delivered_results.aspx" />
+    <Content Include="teacher_quizzes\evaluate_quiz.aspx" />
     <Content Include="teacher_quizzes\new_quiz.aspx" />
     <Content Include="teacher_quizzes\new_quiz.css" />
     <Content Include="teacher_quizzes\new_quiz.js" />
+    <Content Include="teacher_quizzes\new_quiz_1.aspx" />
+    <Content Include="teacher_quizzes\submissions.aspx" />
     <Content Include="teacher_quizzes\teacher_quizzes.master.css" />
+    <Content Include="teacher_quizzes\view_quiz.aspx" />
     <Content Include="Web.config" />
     <Content Include="WebForm1.aspx" />
   </ItemGroup>
@@ -232,13 +242,28 @@
     <Compile Include="getCountries_Result.cs">
       <DependentUpon>Model.tt</DependentUpon>
     </Compile>
+    <Compile Include="getDeliveredResults_Result.cs">
+      <DependentUpon>Model.tt</DependentUpon>
+    </Compile>
     <Compile Include="getLogins_Result.cs">
+      <DependentUpon>Model.tt</DependentUpon>
+    </Compile>
+    <Compile Include="getMySubmissions_Result.cs">
       <DependentUpon>Model.tt</DependentUpon>
     </Compile>
     <Compile Include="getOpenQuizzes_Result.cs">
       <DependentUpon>Model.tt</DependentUpon>
     </Compile>
     <Compile Include="getProfile_Result.cs">
+      <DependentUpon>Model.tt</DependentUpon>
+    </Compile>
+    <Compile Include="getResults_Result.cs">
+      <DependentUpon>Model.tt</DependentUpon>
+    </Compile>
+    <Compile Include="getSubmissions_Result.cs">
+      <DependentUpon>Model.tt</DependentUpon>
+    </Compile>
+    <Compile Include="getSubmission_Result.cs">
       <DependentUpon>Model.tt</DependentUpon>
     </Compile>
     <Compile Include="index.aspx.cs">
@@ -248,6 +273,9 @@
     <Compile Include="index.aspx.designer.cs">
       <DependentUpon>index.aspx</DependentUpon>
     </Compile>
+    <Compile Include="LocalOption.cs" />
+    <Compile Include="LocalQuestion.cs" />
+    <Compile Include="LocalQuiz.cs" />
     <Compile Include="login.aspx.cs">
       <DependentUpon>login.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -298,6 +326,13 @@
     <Compile Include="Quiz.cs">
       <DependentUpon>Model.tt</DependentUpon>
     </Compile>
+    <Compile Include="QuizQuestion.cs" />
+    <Compile Include="Result.cs">
+      <DependentUpon>Model.tt</DependentUpon>
+    </Compile>
+    <Compile Include="ResultStatus.cs">
+      <DependentUpon>Model.tt</DependentUpon>
+    </Compile>
     <Compile Include="SessionException.cs" />
     <Compile Include="signup.aspx.cs">
       <DependentUpon>signup.aspx</DependentUpon>
@@ -306,14 +341,15 @@
     <Compile Include="signup.aspx.designer.cs">
       <DependentUpon>signup.aspx</DependentUpon>
     </Compile>
-    <Compile Include="sp_helpdiagramdefinition_Result.cs">
-      <DependentUpon>Model.tt</DependentUpon>
-    </Compile>
-    <Compile Include="sp_helpdiagrams_Result.cs">
-      <DependentUpon>Model.tt</DependentUpon>
-    </Compile>
     <Compile Include="Student.cs">
       <DependentUpon>Model.tt</DependentUpon>
+    </Compile>
+    <Compile Include="student_quizzes\my_submissions.aspx.cs">
+      <DependentUpon>my_submissions.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="student_quizzes\my_submissions.aspx.designer.cs">
+      <DependentUpon>my_submissions.aspx</DependentUpon>
     </Compile>
     <Compile Include="student_quizzes\open_quizzes.aspx.cs">
       <DependentUpon>open_quizzes.aspx</DependentUpon>
@@ -322,6 +358,13 @@
     <Compile Include="student_quizzes\open_quizzes.aspx.designer.cs">
       <DependentUpon>open_quizzes.aspx</DependentUpon>
     </Compile>
+    <Compile Include="student_quizzes\results.aspx.cs">
+      <DependentUpon>results.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="student_quizzes\results.aspx.designer.cs">
+      <DependentUpon>results.aspx</DependentUpon>
+    </Compile>
     <Compile Include="student_quizzes\student_quizzes.master.cs">
       <DependentUpon>student_quizzes.master</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -329,18 +372,15 @@
     <Compile Include="student_quizzes\student_quizzes.master.designer.cs">
       <DependentUpon>student_quizzes.master</DependentUpon>
     </Compile>
-    <Compile Include="Submission.cs">
-      <DependentUpon>Model.tt</DependentUpon>
-    </Compile>
-    <Compile Include="sysdiagrams.cs">
-      <DependentUpon>Model.tt</DependentUpon>
-    </Compile>
-    <Compile Include="take_quiz.aspx.cs">
+    <Compile Include="student_quizzes\take_quiz.aspx.cs">
       <DependentUpon>take_quiz.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="take_quiz.aspx.designer.cs">
+    <Compile Include="student_quizzes\take_quiz.aspx.designer.cs">
       <DependentUpon>take_quiz.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Submission.cs">
+      <DependentUpon>Model.tt</DependentUpon>
     </Compile>
     <Compile Include="Teacher.cs">
       <DependentUpon>Model.tt</DependentUpon>
@@ -352,6 +392,20 @@
     <Compile Include="teacher_quizzes\all_quizzes.aspx.designer.cs">
       <DependentUpon>all_quizzes.aspx</DependentUpon>
     </Compile>
+    <Compile Include="teacher_quizzes\delivered_results.aspx.cs">
+      <DependentUpon>delivered_results.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="teacher_quizzes\delivered_results.aspx.designer.cs">
+      <DependentUpon>delivered_results.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="teacher_quizzes\evaluate_quiz.aspx.cs">
+      <DependentUpon>evaluate_quiz.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="teacher_quizzes\evaluate_quiz.aspx.designer.cs">
+      <DependentUpon>evaluate_quiz.aspx</DependentUpon>
+    </Compile>
     <Compile Include="teacher_quizzes\new_quiz.aspx.cs">
       <DependentUpon>new_quiz.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -359,12 +413,33 @@
     <Compile Include="teacher_quizzes\new_quiz.aspx.designer.cs">
       <DependentUpon>new_quiz.aspx</DependentUpon>
     </Compile>
+    <Compile Include="teacher_quizzes\new_quiz_1.aspx.cs">
+      <DependentUpon>new_quiz_1.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="teacher_quizzes\new_quiz_1.aspx.designer.cs">
+      <DependentUpon>new_quiz_1.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="teacher_quizzes\submissions.aspx.cs">
+      <DependentUpon>submissions.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="teacher_quizzes\submissions.aspx.designer.cs">
+      <DependentUpon>submissions.aspx</DependentUpon>
+    </Compile>
     <Compile Include="teacher_quizzes\teacher_quizzes.master.cs">
       <DependentUpon>teacher_quizzes.master</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="teacher_quizzes\teacher_quizzes.master.designer.cs">
       <DependentUpon>teacher_quizzes.master</DependentUpon>
+    </Compile>
+    <Compile Include="teacher_quizzes\view_quiz.aspx.cs">
+      <DependentUpon>view_quiz.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="teacher_quizzes\view_quiz.aspx.designer.cs">
+      <DependentUpon>view_quiz.aspx</DependentUpon>
     </Compile>
     <Compile Include="Visibility.cs">
       <DependentUpon>Model.tt</DependentUpon>

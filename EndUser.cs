@@ -24,6 +24,7 @@ namespace onlineQuiz_bsef17m35
         public string type { get; set; }
         public string gender { get; set; }
         public string profilePicturePath { get; set; }
+        public bool active { get; set; }
     
         public virtual Country Country { get; set; }
         public virtual EndUserType EndUserType { get; set; }

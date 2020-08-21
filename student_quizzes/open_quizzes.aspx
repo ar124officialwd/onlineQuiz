@@ -6,7 +6,7 @@
     <asp:Repeater id="openQuizzesRepeater" runat="server">
       <ItemTemplate>
         <div class="asp-panel mb-1">
-          <div class="p-1">
+          <div class="alert alert-dark p-2">
             <b><%# Eval("title") %></b>
           </div>
 
@@ -14,6 +14,16 @@
             <small>
               <%# Eval("description") %>
             </small>
+          </div>
+
+          <div class="p-1">
+            <b>Teacher Name: </b>
+            <span><%# Eval("teacherName") %></span>
+          </div>
+
+          <div class="p-1">
+            <b>Teacher Email: </b>
+            <span><%# Eval("teacherEmail") %></span>
           </div>
 
           <div class="p-1">
@@ -31,8 +41,8 @@
             <span><%# Eval("passingMarks") %></span>
           </div>
 
-          <div class="p-1">
-            <asp:Button runat="server" CssClass="btn btn-primary quizLinkButton"
+          <div class="p-1 d-flex flex-row-reverse">
+            <asp:Button runat="server" CssClass="btn btn-light quizLinkButton"
               Text="Take Quiz" OnClick="OpenQuiz" CommandName='<%# Eval("teacherId") %>'
               CommandArgument='<%# Eval("id") %>'/>
           </div>

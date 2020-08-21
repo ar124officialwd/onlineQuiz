@@ -5,11 +5,11 @@
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="quizes" runat="server">
   <div runat="server" class="p-2 d-flex flex-column" id="allQuizesContainer">
-    <asp:Repeater runat="server" ID="AllQuizzesRepeater">
+    <asp:Repeater runat="server" ID="AllQuizzesRepeater" OnItemCommand="CommandHandler">
       <ItemTemplate>
         <div class="asp-panel p-2 m-1">
           <div class="alert alert-dark p-2"><b><%# Eval("title") %></b></div>
-          <div class="p-2"><b><%# Eval("description") %></b></div>
+          <div class="py-0 py-2 m-0"><small><%# Eval("description") %></small></div>
 
           <div class="row p-2 flex-wrap">
             <div class="border border-danger mr-1 field">
@@ -44,12 +44,18 @@
           </div>
 
           <div class="d-flex flex-row-reverse p-2">
-            <button class="btn btn-danger">Delete</button>
-            <button class="btn btn-light mr-1">Edit</button>
-            <asp:LinkButton runat="server" CssClass="btn btn-light mr-1"
-              OnClick="ViewQuiz_Click" CommandArgument='<%# Eval("id") %>'
-              Text="View">
-            </asp:LinkButton>
+            <asp:LinkButton runat="server" CssClass="btn btn-danger" ID="deleteButton"
+              CommandName="Delete" CommandArgument='<%# Eval("id") %>'
+              Text="Delete"></asp:LinkButton>
+
+            <asp:LinkButton CssClass="btn btn-light mr-1" runat="server" ID="editButton"
+              CommandName="Edit" CommandArgument='<%# Eval("id") %>'
+              Click="CommandHandler" Text="Edit"></asp:LinkButton>
+
+            <asp:Button runat="server" CssClass="btn btn-light mr-1"
+              OnClick="ViewQuiz_Click"
+              CommandArgument='<%# Eval("id") %>' Text="View">
+            </asp:Button>
           </div>
         </div>
       </ItemTemplate>

@@ -33,13 +33,13 @@ namespace onlineQuiz_bsef17m35.profile
     protected global::System.Web.UI.HtmlControls.HtmlGenericControl profileUpdated;
 
     /// <summary>
-    /// accountDeleteError control.
+    /// accountDeActivateError control.
     /// </summary>
     /// <remarks>
     /// Auto-generated field.
     /// To modify move field declaration from designer file to code-behind file.
     /// </remarks>
-    protected global::System.Web.UI.HtmlControls.HtmlGenericControl accountDeleteError;
+    protected global::System.Web.UI.HtmlControls.HtmlGenericControl accountDeActivateError;
 
     /// <summary>
     /// DeleteAccountModel control.
@@ -51,13 +51,31 @@ namespace onlineQuiz_bsef17m35.profile
     protected global::System.Web.UI.HtmlControls.HtmlGenericControl DeleteAccountModel;
 
     /// <summary>
-    /// ReallyDeleteAccount control.
+    /// teacherDisabilities control.
     /// </summary>
     /// <remarks>
     /// Auto-generated field.
     /// To modify move field declaration from designer file to code-behind file.
     /// </remarks>
-    protected global::System.Web.UI.WebControls.Button ReallyDeleteAccount;
+    protected global::System.Web.UI.HtmlControls.HtmlGenericControl teacherDisabilities;
+
+    /// <summary>
+    /// studentDisabilities control.
+    /// </summary>
+    /// <remarks>
+    /// Auto-generated field.
+    /// To modify move field declaration from designer file to code-behind file.
+    /// </remarks>
+    protected global::System.Web.UI.HtmlControls.HtmlGenericControl studentDisabilities;
+
+    /// <summary>
+    /// ReallyDeActivateAccount control.
+    /// </summary>
+    /// <remarks>
+    /// Auto-generated field.
+    /// To modify move field declaration from designer file to code-behind file.
+    /// </remarks>
+    protected global::System.Web.UI.WebControls.Button ReallyDeActivateAccount;
 
     /// <summary>
     /// profileView control.

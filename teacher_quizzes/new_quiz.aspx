@@ -6,6 +6,10 @@
 </asp:Content>
 
 <asp:Content ID="Content1" ContentPlaceHolderID="quizes" runat="server">
+  <asp:HiddenField runat="server" ID="updateMode" Value="false" />
+  <div runat="server" id="quizLoadError" visible="false"
+    class="m-1 p-2 alert alert-danger"></div>
+
   <div runat="server" id="newQuizForm" class="form p-2 pb-5">
     <div class="form-group p-1">
       <asp:Label runat="server" Text="Quiz Title"></asp:Label><br />
@@ -95,7 +99,7 @@
             Please enter a valid email!
           </div>
 
-          <div runat="server" id="existingBlackEmails"></div>
+          <div runat="server" id="existingBlackEmails" class="p-1 m-1"></div>
         </div>
       </div>
     </div>
@@ -114,7 +118,7 @@
       </div>
 
       <div class="form-group">
-        <asp:Label runat="server" Text="Question Desription(Optional)"></asp:Label><br />
+        <asp:Label runat="server" Text="Question Description(Optional)"></asp:Label><br />
         <asp:TextBox runat="server" ID="questionDescription"
           MaxLength="128" CssClass="form-control">
         </asp:TextBox>
@@ -214,18 +218,18 @@
     </div>
 
     <div class="p-2">
-      <button onClick="saveQuiz()" class="btn btn-primary"
+      <button onClick="saveQuiz()" class="btn btn-primary" id="submitButton"
         type="button">Save Quiz</button>
     </div>
   </div>
 
-  <div runat="server" id="response" class="asp-panel alert alert-info">
+  <div runat="server" id="response" class="alert alert-info m-1 p-2">
     Quiz has been successfully Saved. <a href="new_quiz.aspx">Add another quiz</a>
   </div>
 
   <div runat="server" id="applicationError"
-    class="asp-panel alert alert-danger p-2">
-    We are really Sorry, but something went wrong while processing quiz. Please
+    class="alert alert-danger m-1 p-2">
+    We are really sorry, but something went wrong while processing quiz. Please
     try again!
   </div>
 

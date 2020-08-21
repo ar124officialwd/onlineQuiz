@@ -9,10 +9,10 @@
     <a href="open_quizzes.aspx" class="nav-link" id="studentLinkOpenQuizzes">Open Quizzes</a>
   </li>
   <li class="px-2 nav-item">
-    <a href="#" class="nav-link" id="studentLinkMySubmissions">My Submissions</a>
+    <a href="my_submissions.aspx" class="nav-link" id="studentLinkMySubmissions">My Submissions</a>
   </li>
   <li class="px-2 nav-item">
-    <a href="#" class="nav-link" id="studentLinkResults">Results</a>
+    <a href="results.aspx" class="nav-link" id="studentLinkResults">Results</a>
   </li>
 </asp:Content>
 

@@ -20,5 +20,6 @@ namespace onlineQuiz_bsef17m35
         public string content { get; set; }
     
         public virtual Quiz Quiz { get; set; }
+        public virtual Result Result { get; set; }
     }
 }

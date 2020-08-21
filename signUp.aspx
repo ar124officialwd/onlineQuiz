@@ -22,7 +22,7 @@
               style="position: relative; width: 100%; height: 100%" class="hov-opacity-half"/>
             <asp:FileUpload runat="server" ID="profilePictureFileUpload" Visible="true"
               data-deleted="true"/>
-            <input type="hidden" runat="server" id="isProfilePictureSet" style="display: none"
+            <input type="hidden" runat="server" id="isProfilePictureSet" style="display: none;"
                value="false"/>
           </div>
 

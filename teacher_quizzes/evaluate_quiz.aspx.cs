@@ -17,6 +17,8 @@ namespace onlineQuiz_bsef17m35.teacher_quizzes
         return;
       }
 
+      Master.ValidateSession();
+
       var teacherId = Int32.Parse(Session["userId"].ToString());
       var quizId = -1;
       var studentId = -1;
@@ -134,7 +136,7 @@ namespace onlineQuiz_bsef17m35.teacher_quizzes
 
         resultIssued.Visible = true;
         mainView.Visible = false;
-      } catch(Exception err)
+      } catch(Exception _err)
       {
         issueResultError.InnerText = "Something went wrong! Unabled to issue result";
         issueResultError.Visible = true;
